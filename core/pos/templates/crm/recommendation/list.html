@@ -1,0 +1,35 @@
+{% extends 'list.html' %}
+
+{% block columns %}
+    <th>Número</th>
+    <th>Personal</th>
+    <th>Distrito</th>
+    <th>Circuito</th>
+    <th>Subcircuito</th>
+    <th>Descripción</th>
+    <th class="text-center">Opciones</th>
+{% endblock %}
+
+{% block rows %}
+    {% for i in object_list %}
+        <tr>
+            <td>{{ i.id }}</td>
+            <td> {{ i.subcircuit.personal }}</td>
+            <td> {{ i.subcircuit.circuit.district }}</td>
+            <td> {{ i.subcircuit.circuit }}</td>
+            <td> {{ i.subcircuit.name }}</td>
+            <td>{{ i.description }}</td>
+            <td class="text-center">
+                <a href="{% url 'recommendation_update' i.id %}" data-toggle="tooltip" title="Editar registro"
+                   class="btn btn-warning btn-xs btn-flat">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a href="{% url 'recommendation_delete' i.id %}" rel="delete" data-toggle="tooltip" title="Eliminar registro"
+                   class="btn btn-danger btn-xs btn-flat">
+                    <i class="fas fa-trash"></i>
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+

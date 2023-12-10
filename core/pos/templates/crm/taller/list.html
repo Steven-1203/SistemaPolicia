@@ -1,0 +1,53 @@
+{% extends 'list.html' %}
+
+{% block columns %}
+    <th>Contrato</th>
+    <th>Nro. Factura</th>
+    <th>Valor</th>
+    <th>Descripción</th>
+    <th>Orden</th>
+    <th>Subcircuito</th>
+    <th>Estado</th>
+    <th class="text-center">Opciones</th>
+    
+{% endblock %}
+
+{% block rows %}
+    {% for i in object_list %}
+        <tr>
+            <td>{{ i.id }}</td>
+            <td>{{ i.number }}</td>
+            <td>$ {{ i.valor }}</td>
+            <td>{{ i.description}}</td>
+            <td>{{ i.order.description}}</td>
+            <td>{{ i.subcircuit.name}}</td>
+            {% if i.state == 'Pendiente' %}
+            <td><span class="badge badge-success"> {{ i.state}}</span></td>
+            {% endif %}
+            {% if i.state == 'Finalizado' %}
+            <td><span class="badge badge-danger"> {{ i.state}}</span></td>
+            {% endif %}
+            {% if i.state == 'Pendiente' %}
+            <td class="text-center">
+                <a href="{% url 'taller_update' i.id %}" data-toggle="tooltip" title="Editar registro"
+                   class="btn btn-warning btn-xs btn-flat">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a href="{% url 'taller_delete' i.id %}" rel="delete" data-toggle="tooltip" title="Eliminar registro"
+                   class="btn btn-danger btn-xs btn-flat">
+                    <i class="fas fa-trash"></i>
+                </a>
+            </td>
+            {% endif %}
+            {% if i.state == 'Finalizado' %}
+            <td class="text-center">
+                <a href="{% url 'taller_delete' i.id %}" rel="delete" data-toggle="tooltip" title="Eliminar registro"
+                   class="btn btn-danger btn-xs btn-flat">
+                    <i class="fas fa-trash"></i>
+                </a>
+            </td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+    
+{% endblock %}

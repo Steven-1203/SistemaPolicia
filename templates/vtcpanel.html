@@ -1,0 +1,83 @@
+{% extends 'skin.html' %}
+{% load static %}
+{% block head_body %}
+    <script src="{% static 'lib/highcharts-9.1.1/highcharts.js' %}" type="text/javascript"></script>
+    <script src="{% static 'lib/highcharts-9.1.1/highcharts-3d.js' %}" type="text/javascript"></script>
+    <script src="{% static 'lib/highcharts-9.1.1/modules/exporting.js' %}" type="text/javascript"></script>
+    <script src="{% static 'lib/highcharts-9.1.1/modules/data.js' %}" type="text/javascript"></script>
+    <script src="{% static 'lib/highcharts-9.1.1/modules/drilldown.js' %}" type="text/javascript"></script>
+{% endblock %}
+{% block breadcrumb %}
+{% endblock %}
+
+{% block content %}
+    {% if request.user.is_client %}
+    {% else %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-info"><i class="fas fa-user-friends"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Personal</span>
+                            <span class="info-box-number">
+                                <span class="info-box-number">{{ personal }}</span>
+                    </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-success"><i class="fas fa-solid fa-bell"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Solicitudes</span>
+                            <span class="info-box-number">{{ requests }}</span>
+                    </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-warning"><i class="fas fa-wrench"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Mantenimiento</span>
+                            <span class="info-box-number">
+                            <span class="info-box-number">{{ order }}</span>
+                    </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-danger"><i class="fas fa-list-alt"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Taller</span>
+                            <span class="info-box-number">
+                            <span class="info-box-number">{{ taller }}</span>
+                    </span>
+                        </div>
+                    </div>
+                </div>
+            <center>
+            </center>
+        </div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 mt-3">
+                    <div class="card card-widget widget-user">
+                        <div class="widget-user-header bg-gradient-blue" style="height: auto;">                           
+                            <h5 class="widget-user-desc" style="font-weight: normal;">
+                                <b>Bienvenido {{ request.user.names }}</b><br>
+                                Tu último acceso fue {{ request.user.last_login }}
+                            </h5>
+                        </div>
+                        <hr>
+                           <center><img src="{{ dashboard.get_image }}" alt="AdminLTE Logo" class="brand-image" width="400" height="400"/>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

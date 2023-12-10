@@ -1,0 +1,26 @@
+{% extends 'list.html' %}
+{% load static %}
+{% block head_list %}
+   <script src="{% static 'crm/personal/js/list.js' %}"></script>
+{% endblock %}
+
+{% block columns %}
+    <th>Número</th>
+    <th>Nombres</th>
+    <th>Cédula</th>
+    <th>Teléfono</th>
+    <th>Ciudad</th>
+    <th>T. Sangre</th>
+    <th>Grado</th>
+    <th>F. nacimiento</th>
+    <th class="text-center">Opciones</th>
+{% endblock %}
+
+{% block rows %}
+
+{% endblock %}
+
+{% block javascript_list %}
+
+{% endblock %}
+

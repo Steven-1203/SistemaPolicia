@@ -1,0 +1,62 @@
+{% extends 'list.html' %}
+
+{% block columns %}
+    <th>Número</th>
+    <th>Descripción</th>
+    <th>Solicitud</th>
+    <th>Progreso</th>
+    <th class="text-center">Opciones</th>
+    
+{% endblock %}
+
+{% block rows %}
+    {% for i in object_list %}
+        <tr>
+            <td>{{ i.id }}</td>
+            <td>{{ i.description }}</td>
+            <td>{{ i.requests.typemaintenance }}</td>
+            {% if i.progress == '25%' %}
+            <td><span class="progress-bar bg-danger" role="progressbar" style="width: 25%;" aria-valuenow="25" > {{ i.progress}}</span></td>
+            {% endif %}
+            {% if i.progress == '50%' %}
+            <td><span class="progress-bar bg-warning" role="progressbar" style="width: 50%;" aria-valuenow="50" > {{ i.progress}}</span></td>
+            {% endif %}
+            {% if i.progress == '100%' %}
+            <td><span class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="100" > {{ i.progress}}</span></td>
+            {% endif %}
+            {% if i.progress == '100%' %}
+            <td class="text-center">
+                <a href="{% url 'ordermaintenance_delete' i.id %}" rel="delete" data-toggle="tooltip" title="Eliminar registro"
+                   class="btn btn-danger btn-xs btn-flat">
+                    <i class="fas fa-trash"></i>
+                </a>
+            </td>
+            {% endif %}
+            {% if i.progress == '25%' %}
+            <td class="text-center">
+                <a href="{% url 'ordermaintenance_update' i.id %}" data-toggle="tooltip" title="Editar registro"
+                   class="btn btn-warning btn-xs btn-flat">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a href="{% url 'ordermaintenance_delete' i.id %}" rel="delete" data-toggle="tooltip" title="Eliminar registro"
+                   class="btn btn-danger btn-xs btn-flat">
+                    <i class="fas fa-trash"></i>
+                </a>
+            </td>
+            {% endif %}
+            {% if i.progress == '50%' %}
+            <td class="text-center">
+                <a href="{% url 'ordermaintenance_update' i.id %}" data-toggle="tooltip" title="Editar registro"
+                   class="btn btn-warning btn-xs btn-flat">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a href="{% url 'ordermaintenance_delete' i.id %}" rel="delete" data-toggle="tooltip" title="Eliminar registro"
+                   class="btn btn-danger btn-xs btn-flat">
+                    <i class="fas fa-trash"></i>
+                </a>
+            </td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+    
+{% endblock %}

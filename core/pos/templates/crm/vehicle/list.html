@@ -1,0 +1,42 @@
+{% extends 'list.html' %}
+
+{% block columns %}
+    <th>Número</th>
+    <th>Tipo</th>
+    <th>Placa</th>
+    <th>Cilindraje</th>
+    <th>Motor</th>
+    <th>Kilometraje</th>
+    <th>modelo</th>
+    <th>C. carga</th>
+    <th>C. pasajeros</th>
+    <th class="text-center">Opciones</th>
+    
+{% endblock %}
+
+{% block rows %}
+    {% for i in object_list %}
+        <tr>
+            <td>{{ i.id }}</td>
+            <td>{{ i.type }}</td>
+            <td>{{ i.placa }}</td>
+            <td>{{ i.cylinder }}</td>
+            <td>{{ i.motor }}</td>
+            <td>{{ i.km }}</td>
+            <td>{{ i.model }}</td>
+            <td>{{ i.capacitycarga }}</td>
+            <td>{{ i.capacitypeople }}</td>
+            <td class="text-center">
+                <a href="{% url 'vehicle_update' i.id %}" data-toggle="tooltip" title="Editar registro"
+                   class="btn btn-warning btn-xs btn-flat">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a href="{% url 'vehicle_delete' i.id %}" rel="delete" data-toggle="tooltip" title="Eliminar registro"
+                   class="btn btn-danger btn-xs btn-flat">
+                    <i class="fas fa-trash"></i>
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    
+{% endblock %}
