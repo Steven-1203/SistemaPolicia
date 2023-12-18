@@ -67,11 +67,10 @@ class Vehicle(models.Model):
         ordering = ['-id']
 
 class District(models.Model):
-    #CREACION DE LOS CAMPOS DE LA TABLA DISTRITO
+    
     name = models.CharField(max_length=150, null=True, blank=True, verbose_name='Nombre')
     code = models.CharField(max_length=8, unique=True, verbose_name='Código')
 
-    #OBTENER EL NOMBRE Y EL CODIGO PARA LISTVIEW
     def __str__(self):
         return self.name
 
@@ -95,6 +94,9 @@ class Circuit(models.Model):
 
     def get_name_district(self):
         return f'{self.district.name}'
+    
+    def get_personal_circuito(self):
+        return [s.personal for s in SubCircuit.objects.filter(Circuit = self).all()]
     
     def toJSON(self):
         item = model_to_dict(self)
@@ -350,7 +352,7 @@ class Taller(models.Model):
     valor = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
     description = models.CharField(max_length=500, null=True, blank=True, verbose_name='Descripción')
     order = models.ForeignKey(Ordermaintenance, on_delete=models.PROTECT, verbose_name='Orden de mantenimiento')
-    subcircuit = models.ForeignKey(SubCircuit, on_delete=models.PROTECT, verbose_name='Subcircuito') #PERSONAL ETC
+    subcircuit = models.ForeignKey(SubCircuit, on_delete=models.PROTECT, verbose_name='Subcircuito') 
     state = models.CharField(max_length=100, choices=STATE_TYPE, default=STATE_TYPE[0][0], verbose_name='Estado')
     date_joined = models.DateField(default=datetime.now, verbose_name='Fecha de Registro')
     

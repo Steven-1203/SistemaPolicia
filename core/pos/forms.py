@@ -142,8 +142,8 @@ class SubcircuitForm(ModelForm):
             'circuit': forms.Select(attrs={'class': 'form-control select2', 'style': 'width: 100%;'}),
             'personal': forms.Select(attrs={'class': 'form-control select2', 'style': 'width: 100%;'}),
             'vehicle': forms.Select(attrs={'class': 'form-control select2', 'style': 'width: 100%;'}),
-            'name': forms.TextInput(attrs={'placeholder': 'Ingrese nombre del distrito'}),
-            'code': forms.TextInput(attrs={'placeholder': 'Ingrese codigo del distrito'}),
+            'name': forms.TextInput(attrs={'placeholder': 'Ingrese nombre del subcircuito'}),
+            'code': forms.TextInput(attrs={'placeholder': 'Ingrese codigo del subcircuito'}),
         }
     
     def save(self, commit=True):

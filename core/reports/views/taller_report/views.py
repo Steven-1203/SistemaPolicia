@@ -33,5 +33,5 @@ class TallerReportView(FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Reporte de talleres'
+        context['title'] = 'Reporte de taller'
         return context

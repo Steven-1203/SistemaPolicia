@@ -12,5 +12,5 @@ class ReportForm(forms.Form):
     sale = forms.ChoiceField(widget=forms.Select(attrs={
         'class': 'form-control select2',
         'style': 'width: 100%;'
-    }), label='Venta')
+    }), label='')
 
