@@ -320,3 +320,38 @@ class TallerForm(ModelForm):
         except Exception as e:
             data['error'] = str(e)
         return data
+
+class OrderfuelForm(ModelForm):
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['fuel'].widget.attrs['autofocus'] = True
+    
+    class Meta:
+        model = Orderfuel
+        fields = '__all__'
+        widgets = {
+            'fuel': forms.Select(attrs={'class': 'form-control select2', 'style': 'width: 100%;'}),
+            'km': forms.TextInput(attrs={'placeholder': 'Ingrese el Kilometraje del vehículo de llegada'}),
+            'valor': forms.TextInput(attrs={'placeholder': 'Ingrese el valor en dolares', 'class': 'form-control', 'autocomplete': 'off'}),
+            'personal': forms.Select(attrs={'class': 'form-control select2', 'style': 'width: 100%;'}),
+            'vehicle': forms.Select(attrs={'class': 'form-control select2', 'style': 'width: 100%;'}),
+            'date_joined': forms.DateInput(format='%Y-%m-%d', attrs={
+                'class': 'form-control datetimepicker-input',
+                'id': 'date_joined',
+                'value': datetime.now().strftime('%Y-%m-%d'),
+                'data-toggle': 'datetimepicker',
+                'data-target': '#date_joined'
+            }),
+        }
+    
+    def save(self, commit=True):
+        data = {}
+        try:
+            if self.is_valid():
+                super().save()
+            else:
+                data['error'] = self.errors
+        except Exception as e:
+            data['error'] = str(e)
+        return data

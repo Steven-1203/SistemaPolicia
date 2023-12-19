@@ -11,3 +11,9 @@ STATE_TYPE = (
     ('Pendiente', 'Pendiente'),
     ('Finalizado', 'Finalizado'),
 )
+FUEL_TYPE = (
+    ('Extra','Extra'),
+    ('Ecopais','Ecopais'),
+    ('Super','Super'),
+    ('Diesel','Diesel'),
+)

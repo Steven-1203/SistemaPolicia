@@ -9,6 +9,7 @@ from core.pos.views.crm.recommendation.views import *
 from core.pos.views.crm.requestsmaintenance.views import *
 from core.pos.views.crm.ordermaintenance.views import *
 from core.pos.views.crm.taller.views import *
+from core.pos.views.crm.orderfuel.views import *
 
 urlpatterns = [
     # Personal
@@ -71,5 +72,11 @@ urlpatterns = [
     path('crm/taller/add/', TallerCreateView.as_view(), name='taller_create'),
     path('crm/taller/update/<int:pk>/', TallerUpdateView.as_view(), name='taller_update'),
     path('crm/taller/delete/<int:pk>/', TallerDeleteView.as_view(), name='taller_delete'),
+
+    # Combustible
+    path('crm/orderfuel/', OrderfuelListView.as_view(), name='orderfuel_list'),
+    path('crm/orderfuel/add/', OrderfuelCreateView.as_view(), name='orderfuel_create'),
+    path('crm/orderfuel/update/<int:pk>/', OrderfuelUpdateView.as_view(), name='orderfuel_update'),
+    path('crm/orderfuel/delete/<int:pk>/', OrderfuelDeleteView.as_view(), name='orderfuel_delete'),
 
 ]

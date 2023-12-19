@@ -173,6 +173,20 @@ for i in Permission.objects.filter(content_type__model=Taller._meta.label.split(
     module.permits.add(i)
 print(f'insertado {module.name}')
 
+module = Module()
+module.module_type_id = 3
+module.name = 'Orden Combustible'
+module.url = '/pos/crm/orderfuel/'
+module.is_active = True
+module.is_vertical = True
+module.is_visible = True
+module.icon = 'fas fa-gas-pump'
+module.description = 'Permite administrar las ordenes de combustible'
+module.save()
+for i in Permission.objects.filter(content_type__model=Orderfuel._meta.label.split('.')[1].lower()):
+    module.permits.add(i)
+print(f'insertado {module.name}')
+
 moduletype = ModuleType()
 moduletype.name = 'Reportes'
 moduletype.icon = 'fas fa-chart-pie'

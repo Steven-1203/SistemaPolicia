@@ -397,6 +397,55 @@ class Taller(models.Model):
         item['date_joined'] = self.date_joined.strftime('%Y-%m-%d')
         return item
 
+class Orderfuel(models.Model):
 
+    personal = models.ForeignKey(Personal, on_delete=models.PROTECT, verbose_name='Personal')
+    vehicle = models.ForeignKey(Vehicle, on_delete=models.PROTECT, verbose_name='Vehículo')
+    km = models.IntegerField(default=0,  null=True, blank=True, verbose_name='Kilometraje de llegada del vehículo')
+    valor = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
+    fuel = models.CharField(max_length=10, choices=FUEL_TYPE, default=FUEL_TYPE[0][0], verbose_name='Tipo de combustible')
+    date_joined = models.DateField(default=datetime.now, verbose_name='Fecha de Registro')
 
+    def __str__(self):
+        return self.get_full_name()
+    
+    def get_full_name(self):
+        return f'({self.personal.user}) ({self.vehicle.type})'
 
+    def get_short_name(self):
+        return f'({self.personal.user}) ({self.vehicle.type})'
+    
+    def get_or_create_personal(self, name):
+        personal = Personal()
+        search = Personal.objects.filter(name=name)
+        if search.exists():
+            personal = search[0]
+        else:
+            personal.name = name
+            personal.save()
+        return personal
+    
+    def get_or_create_vehicle(self, name):
+        vehicle = Vehicle()
+        search = Vehicle.objects.filter(name=name)
+        if search.exists():
+            vehicle = search[0]
+        else:
+            vehicle.name = name
+            vehicle.save()
+        return vehicle
+    
+    def delete(self, using=None, keep_parents=False):
+        try:
+            os.remove(self.image.path)
+        except:
+            pass
+        super(Requestsmaintenance, self).delete()
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        item['full_name'] = self.get_full_name()
+        item['short_name'] = self.get_short_name()
+        item['personal'] = self.personal.toJSON()
+        item['vehicle'] = self.vehicle.toJSON()
+        return item
