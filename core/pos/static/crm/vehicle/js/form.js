@@ -13,29 +13,6 @@ document.addEventListener('DOMContentLoaded', function (e) {
                 }),
             },
             fields: {
-                type: {
-                    validators: {
-                        notEmpty: {},
-                        stringLength: {
-                            min: 9,
-                        },
-                        remote: {
-                            url: pathname,
-                            data: function () {
-                                return {
-                                    parameter: fv.form.querySelector('[type="type"]').value,
-                                    pattern: 'type',
-                                    action: 'validate_data'
-                                };
-                            },
-                            message: 'El nombre ya se encuentra registrado',
-                            method: 'POST',
-                            headers: {
-                                'X-CSRFToken': csrftoken
-                            },
-                        }
-                    }
-                },
                 placa: {
                     validators: {
                         stringLength: {
@@ -83,6 +60,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
                     validators: {
                         stringLength: {
                             min: 1,
+                            max: 2
                         }
                     }
                 },

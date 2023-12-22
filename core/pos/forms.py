@@ -56,7 +56,7 @@ class VehicleForm(ModelForm):
         fields = '__all__'
         widgets = {
 
-            'type': forms.TextInput(attrs={'placeholder': 'Ingrese el tipo de vehículo'}),
+            'type': forms.Select(attrs={'class': 'form-control select2', 'style': 'width: 100%;'}),
             'placa': forms.TextInput(attrs={'placeholder': 'Ingrese la placa del vehículo'}),
             'chasis': forms.TextInput(attrs={'placeholder': 'Ingrese el chasis del vehículo'}),
             'model': forms.TextInput(attrs={'placeholder': 'Ingrese el modelo del vehículo'}),

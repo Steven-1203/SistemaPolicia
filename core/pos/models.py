@@ -44,7 +44,7 @@ class Personal(models.Model):
 
 class Vehicle(models.Model):
 
-    type = models.CharField(max_length=15, null=True, blank=True, verbose_name='Tipo de vehículo')
+    type = models.CharField(max_length=15, choices=TYPE_VEHICLE, default=TYPE_VEHICLE[0][0], verbose_name='Tipo de vehículo')
     placa = models.CharField(max_length=7, null=True, blank=True, verbose_name='Placa del vehículo')
     chasis = models.CharField(max_length=18, null=True, blank=True, verbose_name='Chasis del vehículo')
     model = models.CharField(max_length=10, null=True, blank=True, verbose_name='modelo del vehículo')

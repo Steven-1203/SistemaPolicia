@@ -77,7 +77,7 @@ class PersonalCreateView(PermissionMixin, CreateView):
                 elif pattern == 'mobile':
                     data['valid'] = not queryset.filter(mobile=parameter).exists()
                 elif pattern == 'email':
-                    data['valid'] = not queryset.filter(user__email=parameter).exists()
+                    data['valid'] = not queryset.filter(user__email=parameter).exists() 
             else:
                 data['error'] = 'No ha seleccionado ninguna opción'
         except Exception as e:
