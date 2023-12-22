@@ -121,7 +121,7 @@ class Circuit(models.Model):
 class SubCircuit(models.Model):
 
     name = models.CharField(max_length=150, null=True, blank=True, verbose_name='Nombre')
-    code = models.CharField(max_length=8, unique=True, verbose_name='Código')
+    code = models.CharField(max_length=12, unique=True, verbose_name='Código')
     circuit = models.ForeignKey(Circuit, on_delete=models.PROTECT, verbose_name='Circuito')
     personal = models.ForeignKey(Personal, on_delete=models.PROTECT, verbose_name='Personal')
     vehicle = models.ForeignKey(Vehicle, on_delete=models.PROTECT, verbose_name='Vehículo')
