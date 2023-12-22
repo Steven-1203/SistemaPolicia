@@ -17,3 +17,10 @@ FUEL_TYPE = (
     ('Super','Super'),
     ('Diesel','Diesel'),
 )
+TYPE_VEHICLE = (
+    ('Automovil','Automovil'),
+    ('Camioneta','Camioneta'),
+    ('Motocicleta','Motocicleta'),
+    ('Camion','Camion'),
+    ('Bus','Bus'),
+)
