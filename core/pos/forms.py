@@ -13,7 +13,7 @@ class PersonalForm(ModelForm):
         
         fields = '__all__'
         widgets = {    
-            'names': forms.TextInput(attrs={'placeholder': 'Ingrese sus nombres'}),
+            'names': forms.TextInput(attrs={'placeholder': 'Ingrese sus nombres completos'}),
             'dni': forms.TextInput(attrs={'placeholder': 'Ingrese su número de cédula'}),
             'email': forms.TextInput(attrs={'placeholder': 'Ingrese su correo electrónico'}),
         }

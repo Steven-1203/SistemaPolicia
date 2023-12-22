@@ -11,7 +11,7 @@ from django.utils import timezone
 from config import settings
 
 class User(AbstractBaseUser, PermissionsMixin):
-    names = models.CharField(max_length=150, null=True, blank=True, verbose_name='Nombres')
+    names = models.CharField(max_length=150, null=True, blank=True, verbose_name='Nombres completos')
     username = models.CharField(max_length=150, unique=True, verbose_name='Username')
     dni = models.CharField(max_length=10, unique=True, verbose_name='Número de cedula')
     image = models.ImageField(upload_to='users/%Y/%m/%d', null=True, blank=True, verbose_name='Imagen')

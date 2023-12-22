@@ -440,7 +440,7 @@ class Orderfuel(models.Model):
             os.remove(self.image.path)
         except:
             pass
-        super(Requestsmaintenance, self).delete()
+        super(Orderfuel, self).delete()
 
     def toJSON(self):
         item = model_to_dict(self)

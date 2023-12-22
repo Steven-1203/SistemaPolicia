@@ -126,14 +126,14 @@ for i in Permission.objects.filter(content_type__model=Recommendation._meta.labe
 print(f'insertado {module.name}')
 
 moduletype = ModuleType()
-moduletype.name = 'Mantenimiento'
+moduletype.name = 'Solicitudes'
 moduletype.icon = 'fas fa-wrench'
 moduletype.save()
 print(f'insertado {moduletype.name}')
 
 module = Module()
 module.module_type_id = 3
-module.name = 'Solicitud'
+module.name = 'Solicitud de mantenimiento'
 module.url = '/pos/crm/requestsmaintenance/'
 module.is_active = True
 module.is_vertical = True
@@ -147,7 +147,7 @@ print(f'insertado {module.name}')
 
 module = Module()
 module.module_type_id = 3
-module.name = 'Orden'
+module.name = 'Orden de mantenimiento'
 module.url = '/pos/crm/ordermaintenance/'
 module.is_active = True
 module.is_vertical = True
