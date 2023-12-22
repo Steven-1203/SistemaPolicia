@@ -6,6 +6,7 @@
     <th>Vehículo</th>
     <th>Kilometraje</th>
     <th>Tipo de combustible</th>
+    <th>Valor</th>
     
     <th class="text-center">Opciones</th>
     
@@ -19,6 +20,7 @@
             <td>{{ i.vehicle.type }}</td>
             <td>{{ i.km }}</td>
             <td>{{ i.fuel }}</td>
+            <td>{{ i.valor }}</td>
             
             <td class="text-center">
                 <a href="{% url 'orderfuel_update' i.id %}" data-toggle="tooltip" title="Editar registro"

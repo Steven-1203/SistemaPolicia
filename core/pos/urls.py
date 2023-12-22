@@ -78,5 +78,4 @@ urlpatterns = [
     path('crm/orderfuel/add/', OrderfuelCreateView.as_view(), name='orderfuel_create'),
     path('crm/orderfuel/update/<int:pk>/', OrderfuelUpdateView.as_view(), name='orderfuel_update'),
     path('crm/orderfuel/delete/<int:pk>/', OrderfuelDeleteView.as_view(), name='orderfuel_delete'),
-
 ]

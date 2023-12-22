@@ -121,7 +121,7 @@ class Circuit(models.Model):
 class SubCircuit(models.Model):
 
     name = models.CharField(max_length=150, null=True, blank=True, verbose_name='Nombre')
-    code = models.CharField(max_length=8, unique=True, verbose_name='Código')
+    code = models.CharField(max_length=12, unique=True, verbose_name='Código')
     circuit = models.ForeignKey(Circuit, on_delete=models.PROTECT, verbose_name='Circuito')
     personal = models.ForeignKey(Personal, on_delete=models.PROTECT, verbose_name='Personal')
     vehicle = models.ForeignKey(Vehicle, on_delete=models.PROTECT, verbose_name='Vehículo')
@@ -403,17 +403,17 @@ class Orderfuel(models.Model):
     vehicle = models.ForeignKey(Vehicle, on_delete=models.PROTECT, verbose_name='Vehículo')
     km = models.IntegerField(default=0,  null=True, blank=True, verbose_name='Kilometraje de llegada del vehículo')
     valor = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
-    fuel = models.CharField(max_length=10, choices=FUEL_TYPE, default=FUEL_TYPE[0][0], verbose_name='Tipo de combustible')
+    fuel = models.CharField(max_length=20, choices=FUEL_TYPE, default=FUEL_TYPE[0][0], verbose_name='Tipo de combustible')
     date_joined = models.DateField(default=datetime.now, verbose_name='Fecha de Registro')
 
     def __str__(self):
         return self.get_full_name()
     
     def get_full_name(self):
-        return f'({self.personal.user}) ({self.vehicle.type})'
+        return f'({self.personal.user}) ({self.vehicle.type}) ({self.vehicle.placa})'
 
     def get_short_name(self):
-        return f'({self.personal.user}) ({self.vehicle.type})'
+        return f'({self.personal.user}) ({self.vehicle.type}) ({self.vehicle.placa})'
     
     def get_or_create_personal(self, name):
         personal = Personal()
