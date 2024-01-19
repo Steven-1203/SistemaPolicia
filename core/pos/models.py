@@ -449,3 +449,82 @@ class Orderfuel(models.Model):
         item['personal'] = self.personal.toJSON()
         item['vehicle'] = self.vehicle.toJSON()
         return item
+    
+class Ordermovilization(models.Model):
+
+    personal = models.ForeignKey(Personal, on_delete=models.PROTECT, verbose_name='Personal')
+    vehicle = models.ForeignKey(Vehicle, on_delete=models.PROTECT, verbose_name='Vehículo')
+    motive = models.CharField(max_length=250, null=True, blank=True, verbose_name='Motivo')
+    date_exit = models.DateField(default=datetime.now, verbose_name='Fecha de Salida')
+    hour_exit = models.CharField(max_length=10, unique=True, verbose_name='Hora de salida')
+    route = models.CharField(max_length=250, null=True, blank=True, verbose_name='Ruta')
+    km = models.IntegerField(default=0,  null=True, blank=True, verbose_name='Kilometraje de inicio')
+    dni = models.CharField(max_length=10, unique=True, verbose_name='Número de cedula')
+    names = models.CharField(max_length=250, null=True, blank=True, verbose_name='Nombres del conductor')
+    mobile = models.CharField(max_length=10, unique=True, verbose_name='Teléfono')
+    grade = models.CharField(max_length=100, null=True, blank=True, verbose_name='Grado')
+    subcircuit = models.ForeignKey(SubCircuit, on_delete=models.PROTECT, verbose_name='Subcircuito') 
+    type_vehicle = models.CharField(max_length=15, choices=TYPE_VEHICLE, default=TYPE_VEHICLE[0][0], verbose_name='Tipo de vehículo')
+    placa_vehicle = models.CharField(max_length=7, null=True, blank=True, verbose_name='Numero de placa')
+    marca_vehicle = models.CharField(max_length=7, null=True, blank=True, verbose_name='Marca del vehiculo')
+    model_vehicle = models.CharField(max_length=10, null=True, blank=True, verbose_name='modelo del vehículo')
+    car_registration = models.CharField(max_length=16, null=False, blank=False, verbose_name='Numero de matricula')
+    number_occupants = models.IntegerField(default=0, null=True, blank=True, verbose_name='Numero de ocupantes')
+    names_occupants = models.CharField(max_length=250, null=True, blank=True, verbose_name='Nombres de los ocupantes')
+    date_joined = models.DateField(default=datetime.now, verbose_name='Fecha de Registro')
+
+    def __str__(self):
+        return self.get_full_name()
+    
+    def get_full_name(self):
+        return f'({self.personal.user}) ({self.vehicle.type}) ({self.vehicle.placa}) ({self.subcircuit.name})'
+
+    def get_short_name(self):
+        return f'({self.personal.user}) ({self.vehicle.type}) ({self.vehicle.placa})'
+    
+    def get_or_create_personal(self, name):
+        personal = Personal()
+        search = Personal.objects.filter(name=name)
+        if search.exists():
+            personal = search[0]
+        else:
+            personal.name = name
+            personal.save()
+        return personal
+    
+    def get_or_create_vehicle(self, name):
+        vehicle = Vehicle()
+        search = Vehicle.objects.filter(name=name)
+        if search.exists():
+            vehicle = search[0]
+        else:
+            vehicle.name = name
+            vehicle.save()
+        return vehicle
+    
+    def get_or_create_subcircuit(self, name):
+        subcircuit = SubCircuit()
+        search = SubCircuit.objects.filter(name=name)
+        if search.exists():
+            subcircuit = search[0]
+        else:
+            subcircuit.name = name
+            subcircuit.save()
+        return subcircuit
+    
+    def delete(self, using=None, keep_parents=False):
+        try:
+            os.remove(self.image.path)
+        except:
+            pass
+        super(Orderfuel, self).delete()
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        item['full_name'] = self.get_full_name()
+        item['subcircuit'] = self.get_full_name()
+        item['short_name'] = self.get_short_name()
+        item['personal'] = self.personal.toJSON()
+        item['vehicle'] = self.vehicle.toJSON()
+        
+        return item

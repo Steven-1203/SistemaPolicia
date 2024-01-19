@@ -161,6 +161,20 @@ print(f'insertado {module.name}')
 
 module = Module()
 module.module_type_id = 3
+module.name = 'Orden de movilizacion'
+module.url = '/pos/crm/ordermovilization/'
+module.is_active = True
+module.is_vertical = True
+module.is_visible = True
+module.icon = 'fas fa-truck-fast'
+module.description = 'Permite administrar las ordenes de movilizacion del sistema'
+module.save()
+for i in Permission.objects.filter(content_type__model=Ordermovilization._meta.label.split('.')[1].lower()):
+    module.permits.add(i)
+print(f'insertado {module.name}')
+
+module = Module()
+module.module_type_id = 3
 module.name = 'Taller'
 module.url = '/pos/crm/taller/'
 module.is_active = True

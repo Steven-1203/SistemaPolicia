@@ -1,0 +1,49 @@
+{% extends 'list.html' %}
+
+{% block columns %}
+    <th>Número</th>
+    <th>Motivo</th>
+    <th>Fecha de salida</th>
+    <th>Hora de salida</th>
+    <th>Ruta</th>
+    <th>KM inicio</th>
+    <th>Datos conductor</th>
+    <th>Datos vehiculo</th>
+    <th>Solicitante</th>
+    <th>Ocupantes</th>
+    <th>Fecha de solicitud</th>
+
+    
+    <th class="text-center">Opciones</th>
+    
+{% endblock %}
+
+{% block rows %}
+    {% for i in object_list %}
+        <tr>
+            <td>{{ i.id }}</td>
+            <td>{{ i.motive }}</td>
+            <td>{{ i.date_exit }}</td>
+            <td>{{ i.hour_exit }}</td>
+            <td>{{ i.route }}</td>
+            <td>{{ i.km }}</td>
+            <td>{{ i.names }}</td>
+            <td>{{ i.type_vehicle }}</td>
+            <td>{{ i.personal.user.names }}</td>
+            <td>{{ i.number_occupants }}<br>{{ i.names_occupants }}</td>
+            <td>{{ i.date_joined }}</td>
+            
+            <td class="text-center">
+                <a href="{% url 'ordermovilization_update' i.id %}" data-toggle="tooltip" title="Editar registro"
+                   class="btn btn-warning btn-xs btn-flat">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a href="{% url 'ordermovilization_delete' i.id %}" rel="delete" data-toggle="tooltip" title="Eliminar registro"
+                   class="btn btn-danger btn-xs btn-flat">
+                    <i class="fas fa-trash"></i>
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    
+{% endblock %}

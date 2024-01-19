@@ -325,7 +325,7 @@ class OrderfuelForm(ModelForm):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['fuel'].widget.attrs['autofocus'] = True
+        self.fields['valor'].widget.attrs['autofocus'] = True
     
     class Meta:
         model = Orderfuel
@@ -336,6 +336,62 @@ class OrderfuelForm(ModelForm):
             'valor': forms.TextInput(attrs={'placeholder': 'Ingrese el valor en dolares', 'class': 'form-control', 'autocomplete': 'off'}),
             'personal': forms.Select(attrs={'class': 'form-control select2', 'style': 'width: 100%;'}),
             'vehicle': forms.Select(attrs={'class': 'form-control select2', 'style': 'width: 100%;'}),
+            'date_joined': forms.DateInput(format='%Y-%m-%d', attrs={
+                'class': 'form-control datetimepicker-input',
+                'id': 'date_joined',
+                'value': datetime.now().strftime('%Y-%m-%d'),
+                'data-toggle': 'datetimepicker',
+                'data-target': '#date_joined'
+            }),
+        }
+    
+    def save(self, commit=True):
+        data = {}
+        try:
+            if self.is_valid():
+                super().save()
+            else:
+                data['error'] = self.errors
+        except Exception as e:
+            data['error'] = str(e)
+        return data
+    
+class OrdermovilizationForm(ModelForm):
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['hour_exit'].widget.attrs['autofocus'] = True
+    
+    class Meta:
+        model = Ordermovilization
+        fields = '__all__'
+        widgets = {
+            'motive': forms.Textarea(attrs={'placeholder': 'Ingrese el motivo de la movilización'}),
+            'date_exit': forms.DateInput(format='%Y-%m-%d', attrs={
+                'class': 'form-control datetimepicker-input',
+                'id': 'date_exit',
+                'value': datetime.now().strftime('%Y-%m-%d'),
+                'data-toggle': 'datetimepicker',
+                'data-target': '#date_exit'
+            }),
+            'vehicle': forms.Select(attrs={'class': 'form-control select2', 'style': 'width: 100%;'}),
+            'hour_exit': forms.TextInput(attrs={'placeholder': 'Ingrese la hora de salida'}),
+            'route': forms.TextInput(attrs={'placeholder': 'Ingrese la ruta recorrer'}),
+            'km': forms.TextInput(attrs={'placeholder': 'Ingrese el Kilometraje de salida del vehiculo'}),
+            'dni': forms.TextInput(attrs={'placeholder': 'Ingrese su número de cédula'}),
+            'names': forms.TextInput(attrs={'placeholder': 'Ingrese los nombres completos del conductor'}),
+            'mobile': forms.TextInput(attrs={'placeholder': 'Ingrese el numero de telefono'}),
+            'grade': forms.TextInput(attrs={'placeholder': 'Ingrese el grado del conductor'}),
+            'subcircuit': forms.Select(attrs={'class': 'form-control select2', 'style': 'width: 100%;'}),
+            'type_vehicle': forms.Select(attrs={'class': 'form-control select2', 'style': 'width: 100%;'}),
+            'placa_vehicle': forms.TextInput(attrs={'placeholder': 'Ingrese la placa del vehículo'}),
+            'marca_vehicle': forms.TextInput(attrs={'placeholder': 'Ingrese la marca del vehículo'}),
+            'model_vehicle': forms.TextInput(attrs={'placeholder': 'Ingrese el modelo del vehículo'}),
+            'car_registration': forms.TextInput(attrs={'placeholder': 'Ingrese el numero de matricula'}),
+            'personal': forms.Select(attrs={'class': 'form-control select2', 'style': 'width: 100%;'}),
+            'subcircuit': forms.Select(attrs={'class': 'form-control select2', 'style': 'width: 100%;'}),
+            'number_occupants': forms.TextInput(attrs={'placeholder': 'Ingrese el numero de ocupantes'}),
+            'names_occupants': forms.TextInput(attrs={'placeholder': 'Ingrese los nombres de los ocupantes'}),
             'date_joined': forms.DateInput(format='%Y-%m-%d', attrs={
                 'class': 'form-control datetimepicker-input',
                 'id': 'date_joined',

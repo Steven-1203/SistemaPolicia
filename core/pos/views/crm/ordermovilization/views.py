@@ -6,26 +6,26 @@ from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView
 
-from core.pos.forms import OrdermaintenanceForm, Ordermaintenance
+from core.pos.forms import OrdermovilizationForm, Ordermovilization
 from core.security.mixins import ModuleMixin, PermissionMixin
 
-class OrdermaintenanceListView(PermissionMixin, ListView):
-    model = Ordermaintenance
-    template_name = 'crm/ordermaintenance/list.html'
-    permission_required = 'view_ordermaintenance'
+class OrdermovilizationListView(PermissionMixin, ListView):
+    model = Ordermovilization
+    template_name = 'crm/ordermovilization/list.html'
+    permission_required = 'view_ordermovilization'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['create_url'] = reverse_lazy('ordermaintenance_create')
-        context['title'] = 'Listado de orden de mantenimiento'
+        context['create_url'] = reverse_lazy('ordermovilization_create')
+        context['title'] = 'Listado de ordenes de movilización'
         return context
 
-class OrdermaintenanceCreateView(PermissionMixin, CreateView):
-    model = Ordermaintenance
-    template_name = 'crm/ordermaintenance/create.html'
-    form_class = OrdermaintenanceForm
-    success_url = reverse_lazy('ordermaintenance_list')
-    permission_required = 'add_ordermaintenance'
+class OrdermovilizationCreateView(PermissionMixin, CreateView):
+    model = Ordermovilization
+    template_name = 'crm/ordermovilization/create.html'
+    form_class = OrdermovilizationForm
+    success_url = reverse_lazy('ordermovilization_list')
+    permission_required = 'add_ordermovilization'
 
     def post(self, request, *args, **kwargs):
         data = {}
@@ -35,13 +35,6 @@ class OrdermaintenanceCreateView(PermissionMixin, CreateView):
                 data = self.get_form().save()
             elif action == 'validate_data':
                 data = {'valid': True}
-                queryset = Ordermaintenance.objects.all()
-                type = request.POST['progress']
-                if type == 'name':
-                    name = request.POST['name'].strip()
-                    data['valid'] = not queryset.filter(name__iexact=name).exists()
-                elif type == 'description':
-                    data['valid'] = not queryset.filter(description__iexact=request.POST['description']).exists()
             else:
                 data['error'] = 'No ha seleccionado ninguna opción'
         except Exception as e:
@@ -51,16 +44,16 @@ class OrdermaintenanceCreateView(PermissionMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         context['list_url'] = self.success_url
-        context['title'] = 'Nuevo registro de una orden de mantenimiento'
+        context['title'] = 'Nuevo registro de una orden de movilización'
         context['action'] = 'add'
         return context
 
-class OrdermaintenanceUpdateView(PermissionMixin, UpdateView):
-    model = Ordermaintenance
-    template_name = 'crm/ordermaintenance/create.html'
-    form_class = OrdermaintenanceForm
-    success_url = reverse_lazy('ordermaintenance_list')
-    permission_required = 'change_ordermaintenance'
+class OrdermovilizationUpdateView(PermissionMixin, UpdateView):
+    model = Ordermovilization
+    template_name = 'crm/ordermovilization/create.html'
+    form_class = OrdermovilizationForm
+    success_url = reverse_lazy('ordermovilization_list')
+    permission_required = 'change_ordermovilization'
 
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -74,7 +67,7 @@ class OrdermaintenanceUpdateView(PermissionMixin, UpdateView):
                 data = self.get_form().save()
             elif action == 'validate_data':
                 data = {'valid': True}
-                queryset = Ordermaintenance.objects.all().exclude(id=self.get_object().id)
+                queryset = Ordermovilization.objects.all().exclude(id=self.get_object().id)
                 pattern = request.POST['pattern']
                 parameter = request.POST['parameter'].strip()
                 if pattern == 'name':
@@ -88,15 +81,15 @@ class OrdermaintenanceUpdateView(PermissionMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         context['list_url'] = self.success_url
-        context['title'] = 'Edición de una orden de mantenimiento'
+        context['title'] = 'Edición de una orden de movilización'
         context['action'] = 'edit'
         return context
 
-class OrdermaintenanceDeleteView(PermissionMixin, DeleteView):
-    model = Ordermaintenance
-    template_name = 'crm/ordermaintenance/delete.html'
-    success_url = reverse_lazy('ordermaintenance_list')
-    permission_required = 'delete_ordermaintenance'
+class OrdermovilizationDeleteView(PermissionMixin, DeleteView):
+    model = Ordermovilization
+    template_name = 'crm/ordermovilization/delete.html'
+    success_url = reverse_lazy('ordermovilization_list')
+    permission_required = 'delete_ordermovilization'
 
     def post(self, request, *args, **kwargs):
         data = {}

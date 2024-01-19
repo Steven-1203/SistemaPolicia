@@ -10,6 +10,7 @@ from core.pos.views.crm.requestsmaintenance.views import *
 from core.pos.views.crm.ordermaintenance.views import *
 from core.pos.views.crm.taller.views import *
 from core.pos.views.crm.orderfuel.views import *
+from core.pos.views.crm.ordermovilization.views import *
 
 urlpatterns = [
     # Personal
@@ -78,4 +79,10 @@ urlpatterns = [
     path('crm/orderfuel/add/', OrderfuelCreateView.as_view(), name='orderfuel_create'),
     path('crm/orderfuel/update/<int:pk>/', OrderfuelUpdateView.as_view(), name='orderfuel_update'),
     path('crm/orderfuel/delete/<int:pk>/', OrderfuelDeleteView.as_view(), name='orderfuel_delete'),
+
+    # Orden de movilizacion
+    path('crm/ordermovilization/', OrdermovilizationListView.as_view(), name='ordermovilization_list'),
+    path('crm/ordermovilization/add/', OrdermovilizationCreateView.as_view(), name='ordermovilization_create'),
+    path('crm/ordermovilization/update/<int:pk>/', OrdermovilizationUpdateView.as_view(), name='ordermovilization_update'),
+    path('crm/ordermovilization/delete/<int:pk>/', OrdermovilizationDeleteView.as_view(), name='ordermovilization_delete'),
 ]
